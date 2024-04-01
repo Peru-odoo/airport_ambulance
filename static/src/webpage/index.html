@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人形圖</title>
+    <script src="./js/fabric.min.js"></script>
+    <link rel="stylesheet" href="./css/mystyle.css">
+</head>
+<body style="font-size: 20px;">
+    <div style="font-weight: bold; margin-bottom: 10px; margin-left: 10px;">
+        請在圖上標示說明受傷部位及其尺寸：
+    </div>
+    <div style="display: inline-block; margin-left: 10px;">
+        <canvas id="c" width="630" height="622" style="border: 1px solid rgb(170, 170, 170); position: absolute; width: 500px; height: 500px; left: 0px; top: 0px; touch-action: none; user-select: none;" class="lower-canvas">
+        </canvas>
+    </div>
+    <div style="margin-left: 10px; display: inline-block; vertical-align: top;">
+        <div id="drawing-mode-options" style="margin-bottom: 20px;">
+            <label for="drawing-color" style="font-weight: bold;">線條顏色:</label>
+            <input type="color" value="#FF0000" id="drawing-color" style="cursor: pointer;">
+            <br>
+        </div>
+        <button id="clear-canvas" class="buttons">Clear</button>
+        <br>
+        <button id="save-canvas" class="buttons">Save</button>
+    </div>
+    <script>
+        (function() {
+            var $ = function(id){return document.getElementById(id)};
+
+            var canvas = this.__canvas = new fabric.Canvas('c', {
+                isDrawingMode: true
+            });
+
+            canvas.setBackgroundImage('./img/human_body_image.jpg', canvas.renderAll.bind(canvas), {
+                backgroundImageStretch: false
+            });
+
+            fabric.Object.prototype.transparentCorners = false;
+
+            var drawingColorEl = $('drawing-color'), 
+                clearEl = $('clear-canvas'), 
+                saveEl = $('save-canvas');
+
+            clearEl.onclick = function() { 
+                canvas.clear();
+                canvas.setBackgroundImage('./img/human_body_image.jpg', canvas.renderAll.bind(canvas), {
+                    backgroundImageStretch: false
+                });
+            };
+
+            saveEl.onclick = function() {
+                var base64_encode = canvas.toDataURL().replace(/^data:image\/(png|jpg);base64,/, "")
+                try {
+                    navigator.clipboard.writeText(base64_encode).then(function() {
+                        alert('已複製到剪貼簿');
+                        window.close();
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+
+            drawingColorEl.onchange = function() {
+                var brush = canvas.freeDrawingBrush;
+                brush.color = this.value;
+                if (brush.getPatternSrc) {
+                brush.source = brush.getPatternSrc.call(brush);
+                }
+            };
+            
+            if (canvas.freeDrawingBrush) {
+                canvas.freeDrawingBrush.color = drawingColorEl.value;
+                canvas.freeDrawingBrush.width = 2;
+            }
+        })();
+    </script>
+</body>
+</html>

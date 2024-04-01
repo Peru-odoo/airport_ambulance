@@ -1,0 +1,35 @@
+#attendance_datetime{
+    margin-right: 80px;
+}
+
+#arrival_scene_datetime{
+    margin-right: 80px;
+}
+
+#leave_scene_datetime{
+    margin-right: 80px;
+}
+
+#arrival_hospital_datetime{
+    margin-right: 80px;
+}
+
+#leave_hospital_datetime{
+    margin-right: 80px;
+}
+
+#return_datetime{
+    margin-right: 80px;
+}
+
+#given_time{
+    margin-right: 80px;
+}
+
+#record_time{
+    margin-right: 80px;
+}
+
+#receive_unit_datetime{
+    margin-right: 80px;
+}

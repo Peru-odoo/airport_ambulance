@@ -1,0 +1,17 @@
+.buttons {
+  height: 80px;
+  padding-top: 10px;
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  background-color: #ece8e8;
+  margin-bottom: 5px;
+  padding: 5px;
+  height: 30px;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  font-size: 16px;
+}
+
