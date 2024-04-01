@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="paperformat_a4_portrait_report_ambulance"  model="report.paperformat">
+        <field name="name">A4 Portrait Report Paper</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10.00</field>
+        <field name="margin_bottom">10.00</field>
+        <field name="margin_left">7.0</field>
+        <field name="margin_right">7.0</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="paperformat_a4_landscape_report_ambulance"  model="report.paperformat">
+        <field name="name">A4 Landscape Report Paper</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">1.00</field>
+        <field name="margin_bottom">1.00</field>
+        <field name="margin_left">5.0</field>
+        <field name="margin_right">5.0</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">25</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="report_for_airport_ambulance_table" model="ir.actions.report">
+        <field name="name">救護紀錄表</field>
+        <field name="model">airport.ambulance.table</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">airport_ambulance.tablereport</field>
+        <field name="report_file">airport_ambulance.tablereport</field>
+        <field name="binding_model_id" ref="model_airport_ambulance_table"/>
+        <field name="paperformat_id" ref="paperformat_a4_landscape_report_ambulance" />
+        <field name="binding_type">report</field>
+        <field name="print_report_name">"救護紀錄表-%s" % (object.name)</field>
+    </record>
+</odoo>

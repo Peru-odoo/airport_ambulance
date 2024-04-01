@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="airport_ambulance.tablereport">
+        <t t-foreach="docs" t-as="ambulance">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div style="text-align: center; margin-bottom: 0px;">
+                            <h2 style="font-weight: bold; color: #000000;">
+                                聯新國際醫院桃園國際機場醫療中心救護紀錄表
+                                <span style="font-size: 14px; text-align: right;">
+                                    <div>
+                                        車牌號碼：
+                                        <span t-field="ambulance.plate_number"/>
+                                    </div>
+                                </span>
+                            </h2>
+                        </div>
+                        <table style="border-collapse:collapse;border-spacing:0; margin: auto;">
+                            <tbody>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                        派遣資料
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        出勤日期
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding:5px;" colspan="2">
+                                        <span t-field="ambulance.attendance_datetime_strf_date" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="9">
+                                        處置項目（此欄可複選）
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;font-size:10px;text-align:center;vertical-align:middle;border-top-color: #ffffff; border-right-color: #ffffff; border-bottom-color: #ffffff;" rowspan="17">
+                                        注<br/>意<br/>：<br/>本<br/>表<br/>一<br/>式<br/>二<br/>份<br/>並<br/>應<br/>保<br/>存<br/>七<br/>年<br/>。<br/><br/><br/><br/><br/><br/>第<br/>一<br/>聯<br/>：<br/>救<br/>護<br/>車<br/>單<br/>位<br/>自<br/>存<br/><br/><br/><br/>第<br/>二<br/>聯<br/>：<br/>交<br/>診<br/>療<br/>醫<br/>院
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        出勤時間
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        到達現場時間
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        離開現場時間
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        抵達時間
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        離開時間
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        返回待命時間
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" rowspan="10">
+                                        急<br/>救<br/>處<br/>置
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px 5px;" colspan="5" rowspan="10">
+                                        <t t-if="ambulance.first_aid_ids">
+                                            <t t-foreach="ambulance.first_aid_ids" t-as="first_aid">
+                                                <t t-if="first_aid.name == '呼吸道處置'">
+                                                    ■呼吸道處置：
+                                                    <br/>
+                                                    <t t-if="ambulance.first_aid_airway_ids">
+                                                        <t t-set="counter" t-value="0" />
+                                                        <t t-foreach="ambulance.first_aid_airway_ids" t-as="airway">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <t t-if="airway.name == '鼻管'">
+                                                                <span>
+                                                                    鼻管
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_airway_nose_flow" />
+                                                                <span>
+                                                                    L/MIN
+                                                                </span>
+                                                            </t>
+                                                            <t t-elif="airway.name == '面罩'">
+                                                                <span>
+                                                                    面罩
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_airway_mask_flow" />
+                                                                <span>
+                                                                    L/MIN
+                                                                </span>
+                                                            </t>
+                                                            <t t-elif="airway.name == 'LMA'">
+                                                                <span>
+                                                                    面罩
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_airway_lma_size" />
+                                                                <span>
+                                                                    號
+                                                                </span>
+                                                            </t>
+                                                            <t t-elif="airway.name == 'Igel'">
+                                                                <span>
+                                                                    Igel
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_airway_igel_size" />
+                                                                <span>
+                                                                    號
+                                                                </span>
+                                                            </t>
+                                                            <t t-elif="airway.name == '氣管內管'">
+                                                                <span>
+                                                                    氣管內管
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_airway_et_size" />
+                                                                <span>
+                                                                    號
+                                                                </span>
+                                                            </t>
+                                                            <t t-elif="airway.name == '其他'">
+                                                                <span>
+                                                                    其他：
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_airway_other" />
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="airway.name" />
+                                                            </t>
+                                                            <t t-if="counter != airway_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter % 2 == 0">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="first_aid.name == '創傷處置'">
+                                                    ■創傷處置：
+                                                    <br/>
+                                                    <t t-if="ambulance.first_aid_trauma_ids">
+                                                        <t t-set="counter" t-value="0" />
+                                                        <t t-foreach="ambulance.first_aid_trauma_ids" t-as="trauma">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <t t-if="trauma.name == '其他'">
+                                                                <span>
+                                                                    其他：
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_trauma_other" />
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="trauma.name" />
+                                                            </t>
+                                                            <t t-if="counter != trauma_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter % 2 == 0">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="first_aid.name == '搬運'">
+                                                    ■搬運：
+                                                    <br/>
+                                                    <t t-if="ambulance.first_aid_transport_ids">
+                                                        <t t-set="counter" t-value="0" />
+                                                        <t t-foreach="ambulance.first_aid_transport_ids" t-as="transport">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <span t-field="transport.name" />
+                                                            <t t-if="counter != transport_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter % 2 == 0">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="first_aid.name == '心肺復甦術'">
+                                                    ■心肺復甦術：
+                                                    <br/>
+                                                    <t t-if="ambulance.first_aid_cpr_ids">
+                                                        <t t-set="counter" t-value="0" />
+                                                        <t t-foreach="ambulance.first_aid_cpr_ids" t-as="cpr">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <t t-if="cpr.name == 'CPR'">
+                                                                <span>
+                                                                    CPR
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_cpr_cpr_minutes" />
+                                                                <span>
+                                                                    分鐘
+                                                                </span>
+                                                            </t>
+                                                            <t t-elif="cpr.name == '使用AED'">
+                                                                <span>
+                                                                    使用AED：
+                                                                </span>
+                                                                <t t-if="ambulance.first_aid_cpr_aed_ids">
+                                                                    <t t-set="aed_counter" t-value="0" />
+                                                                    <t t-foreach="ambulance.first_aid_cpr_aed_ids" t-as="aed">
+                                                                        <t t-set="aed_counter" t-value="aed_counter + 1" />
+                                                                        <t t-if="aed.name == '電擊去顫'">
+                                                                            <span>
+                                                                                電擊去顫
+                                                                            </span>
+                                                                            <span t-field="ambulance.first_aid_cpr_aed_elect_times" />
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <span t-field="aed.name" />
+                                                                        </t>
+                                                                        <t t-if="aed_counter != aed_size">
+                                                                            <span>，</span>
+                                                                        </t>
+                                                                        <t t-if="aed_counter % 2 == 0">
+                                                                            <span>
+                                                                                。
+                                                                            </span>
+                                                                            <br/>
+                                                                        </t>
+                                                                    </t>
+                                                                </t>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="cpr.name" />
+                                                            </t>
+                                                            <t t-if="counter != cpr_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter % 2 == 0">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="first_aid.name == '藥物處置'">
+                                                    ■藥物處置：
+                                                    <br/>
+                                                    <t t-if="ambulance.first_aid_drug_ids">
+                                                        <t t-set="counter" t-value="0" />
+                                                        <t t-foreach="ambulance.first_aid_drug_ids" t-as="drug">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <t t-if="drug.name == '靜脈輸液'">
+                                                                <span>
+                                                                    靜脈輸液，部位
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_drug_iv_body_part" />
+                                                                <span>
+                                                                    ，
+                                                                    <br/>
+                                                                </span>
+                                                                <t t-if="ambulance.first_aid_drug_iv_ids">
+                                                                    <t t-set="iv_counter" t-value="0" />
+                                                                    <t t-foreach="ambulance.first_aid_drug_iv_ids" t-as="iv">
+                                                                        <t t-set="iv_counter" t-value="iv_counter + 1" />
+                                                                        <t t-if="iv.name == '0.9%N/S'">
+                                                                            <span>
+                                                                                0.9%N/S
+                                                                            </span>
+                                                                            <span t-field="ambulance.first_aid_drug_iv_ns_ml" />
+                                                                            <span>
+                                                                                ml
+                                                                            </span>
+                                                                        </t>
+                                                                        <t t-elif="iv.name == 'L/R'">
+                                                                            <span>
+                                                                                L/R
+                                                                            </span>
+                                                                            <span t-field="ambulance.first_aid_drug_iv_lr_ml" />
+                                                                            <span>
+                                                                                ml
+                                                                            </span>
+                                                                        </t>
+                                                                        <t t-elif="iv.name == '葡萄糖液'">
+                                                                            <span t-field="ambulance.first_aid_drug_iv_gs_type" />
+                                                                            <span>
+                                                                                葡萄糖液
+                                                                            </span>
+                                                                            <span t-field="ambulance.first_aid_drug_iv_gs_ml" />
+                                                                            <span>
+                                                                                ml
+                                                                            </span>
+                                                                        </t>
+                                                                        <t t-if="iv_counter != iv_size">
+                                                                            <span>，</span>
+                                                                        </t>
+                                                                        <t t-else="">
+                                                                            <t t-set="period_flag" t-value="1" />
+                                                                            <span>。</span>
+                                                                            <br/>
+                                                                        </t>
+                                                                        <t t-if="iv_counter % 2 == 0">
+                                                                            <br/>
+                                                                        </t>
+                                                                    </t>
+                                                                </t>
+                                                            </t>
+                                                            <t t-elif="drug.name == '協助使用NTG'">
+                                                                <span>
+                                                                    協助使用NTG
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_drug_ntg_pieces" />
+                                                                <span>
+                                                                    片
+                                                                </span>
+                                                            </t>
+                                                            <t t-elif="drug.name == '協助使用支氣管擴張劑'">
+                                                                <span>
+                                                                    協助使用支氣管擴張劑
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_drug_bronchodilator_times" />
+                                                                <span>
+                                                                    次
+                                                                </span>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="drug.name" />
+                                                            </t>
+                                                            <t t-if="counter != drug_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter % 2 == 0">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="first_aid.name == '其他處置'">
+                                                    ■其他處置：
+                                                    <br/>
+                                                    <t t-if="ambulance.first_aid_other_ids">
+                                                        <t t-set="counter" t-value="0" />
+                                                        <t t-foreach="ambulance.first_aid_other_ids" t-as="other">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <t t-if="other.name == '其他'">
+                                                                <span>
+                                                                    其他：
+                                                                </span>
+                                                                <span t-field="ambulance.first_aid_other_other" />
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="other.name" />
+                                                            </t>
+                                                            <t t-if="counter != other_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter % 2 == 0">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    沒有填寫
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            沒有填寫
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:top;padding: 5px;" colspan="3" rowspan="9">
+                                        <div style="font-size: 12px;">
+                                            請在圖上標示說明受傷部位及其尺寸：
+                                        </div>
+                                        <div style="padding-top: 10px;">
+                                            <t t-if="ambulance.human_body_image">
+                                                <span t-field="ambulance.human_body_image" 
+                                                t-options-widget="'image'" 
+                                                t-options-style="'height:35%;'" 
+                                                />
+                                            </t>
+                                            <t t-else="">
+                                                <span>
+                                                    <img src="airport_ambulance/static/src/img/human_body_image.jpg"
+                                                                alt="人形圖" 
+                                                                height="35%"/>
+                                                </span>
+                                            </t>
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding:5px;">
+                                        <span t-field="ambulance.attendance_datetime_strf" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding:5px;">
+                                        <span t-field="ambulance.arrival_scene_datetime_strf" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding:5px;">
+                                        <span t-field="ambulance.leave_scene_datetime_strf" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding:5px;">
+                                        <span t-field="ambulance.arrival_hospital_datetime_strf" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding:15px;">
+                                        <span t-field="ambulance.leave_hospital_datetime_strf" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding:5px;">
+                                        <span t-field="ambulance.return_datetime_strf" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        發生地點
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:middle;padding:5px;" colspan="2">
+                                        <span t-field="ambulance.incident_place_final" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        送往醫院<br/>或地點
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding:0px 5px 5px 5px;" colspan="2">
+                                        <span t-field="ambulance.transport_hospital_or_place_final" />
+                                        <br/>
+                                        <t t-if="ambulance.transport_reason_id">
+                                            <t t-if="ambulance.transport_reason_id.id == 1">
+                                                ■病情需要
+                                                <br/>
+                                                □病人或家屬要求
+                                            </t>
+                                            <t t-elif="ambulance.transport_reason_id.id == 2">
+                                                □病情需要
+                                                <br/>
+                                                ■病人或家屬要求
+                                            </t>
+                                            <t t-else="">
+                                                □病情需要
+                                                <br/>
+                                                □病人或家屬要求
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            □病情需要
+                                            <br/>
+                                            □病人或家屬要求
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="6">
+                                        病患資料
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        姓名
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding: 0px 5px;">
+                                        <span t-field="ambulance.name" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        性別
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:top;padding: 0px 5px;">
+                                        <span t-field="ambulance.sex_id" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:left;vertical-align:top;" colspan="2" rowspan="2">
+                                        病患財物明細：
+                                        <t t-if="ambulance.property_handed">
+                                            <t t-if="ambulance.property_handed == 'no'">
+                                                ■未經手□有
+                                            </t>
+                                            <t t-elif="ambulance.property_handed == 'yes'">
+                                                □未經手■有
+                                            </t>
+                                            <t t-else="">
+                                                □未經手□有
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            □未經手□有
+                                        </t>
+                                        <br/>
+                                        <span t-field="ambulance.property_detail" />
+                                        <br/>
+                                        <div>
+                                            保管人：<span t-field="ambulance.custodian_name" />
+                                            <t t-if="ambulance.custodian_sign">
+                                                <span t-field="ambulance.custodian_sign" t-options-widget="'image'" t-options-style="'width:40%;'" />
+                                            </t>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        身分證字號/<br/>護照號碼
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding: 0px 5px;">
+                                        <span t-field="ambulance.id_or_passport" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        年齡
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:center;vertical-align:middle;padding: 0px 5px;">
+                                        <div>
+                                            <span t-field="ambulance.age" />歲
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        住址
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 0px 5px;" colspan="5">
+                                        <span t-field="ambulance.address" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="6">
+                                        現場狀況（此欄可複選）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <t t-if="ambulance.trauma_classification_ids">
+                                        <t t-set="flag_1" t-value="0"/>
+                                        <t t-set="flag_2" t-value="0"/>
+                                        <t t-foreach="ambulance.trauma_classification_ids" t-as="classification">
+                                            <t t-if="classification.name == '非創傷'">
+                                                <t t-set="flag_1" t-value="1"/>
+                                            </t>
+                                            <t t-if="classification.name == '創傷'">
+                                                <t t-set="flag_2" t-value="1"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="flag_1 == 1 and flag_2 == 1">
+                                            <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                                ■非創傷
+                                            </td>
+                                            <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                                ■創傷
+                                            </td>
+                                        </t>
+                                        <t t-elif="flag_1 == 1">
+                                            <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                                ■非創傷
+                                            </td>
+                                            <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                                □創傷
+                                            </td>
+                                        </t>
+                                        <t t-elif="flag_2 == 1">
+                                            <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                                □非創傷
+                                            </td>
+                                            <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                                ■創傷
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                                □非創傷
+                                            </td>
+                                            <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                                □創傷
+                                            </td>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                            □非創傷
+                                        </td>
+                                        <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                            □創傷
+                                        </td>
+                                    </t>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px;" colspan="3" rowspan="3">
+                                        <t t-if="ambulance.non_trauma_ids">
+                                            <t t-foreach="ambulance.non_trauma_ids" t-as="non_trauma">
+                                                <t t-if="non_trauma.name == '急症'">
+                                                    ■急症：
+                                                    <br/>
+                                                    <t t-set="counter" t-value="0" />
+                                                    <t t-if="ambulance.non_trauma_emergency_ids">
+                                                        <t t-foreach="ambulance.non_trauma_emergency_ids" t-as="emergency">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <t t-if="emergency.name == '其他'">
+                                                                <span>
+                                                                    其他：
+                                                                </span>
+                                                                <span t-field="ambulance.non_trauma_emergency_other" />
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="emergency.name" />
+                                                            </t>
+                                                            <t t-if="counter != emergency_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter%2 == 0 ">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                <t t-if="non_trauma.name == '一般疾病'">
+                                                    ■一般疾病：
+                                                    <br/>
+                                                    <t t-set="counter" t-value="0" />
+                                                    <t t-if="ambulance.non_trauma_general_ids">
+                                                        <t t-foreach="ambulance.non_trauma_general_ids" t-as="general">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <span t-field="general.name" />
+                                                            <t t-if="counter != general_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter%2 == 0 ">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            無
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px;" colspan="3">
+                                        <t t-if="ambulance.trauma_ids">
+                                            <t t-set="else_counter" t-value="0" />
+                                            <t t-foreach="ambulance.trauma_ids" t-as="trauma">
+                                                <t t-if="trauma.name == '一般外傷'">
+                                                    ■一般外傷：
+                                                    <br/>
+                                                    <t t-set="counter" t-value="0" />
+                                                    <t t-if="ambulance.trauma_general_ids">
+                                                        <t t-foreach="ambulance.trauma_general_ids" t-as="general">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <t t-if="general.name == '其他'">
+                                                                <span>
+                                                                    其他：
+                                                                </span>
+                                                                <span t-field="ambulance.trauma_general_other" />
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="general.name" />
+                                                            </t>
+                                                            <t t-if="counter != general_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                            <t t-if="counter%3 == 0 ">
+                                                                <br/>
+                                                            </t>
+                                                        </t>
+                                                        <t t-if="general_size%3 != 0">
+                                                            <br/>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="trauma.name == '受傷機轉'">
+                                                    ■受傷機轉：
+                                                    <br/>
+                                                    <t t-set="counter" t-value="0" />
+                                                    <t t-if="ambulance.trauma_mechanism_of_injury_ids">
+                                                        <t t-foreach="ambulance.trauma_mechanism_of_injury_ids" t-as="mechanism">
+                                                            <t t-set="counter" t-value="counter + 1" />
+                                                            <span t-field="mechanism.name" />
+                                                            <t t-if="counter != mechanism_size">
+                                                                <span>，</span>
+                                                            </t>
+                                                        </t>
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                <t t-elif="trauma.name == '墜落傷'">
+                                                    <span>
+                                                        ■墜落傷：約
+                                                    </span>
+                                                    <span t-field="ambulance.trauma_fall_distance" />
+                                                    <span>
+                                                        尺
+                                                    </span>
+                                                    <br/>
+                                                </t>
+                                                <t t-elif="trauma.name == '燒燙傷'">
+                                                    <span>
+                                                        ■燒燙傷：
+                                                    </span>
+                                                    <span t-field="ambulance.trauma_burns_degree" />
+                                                    <span>
+                                                        度，
+                                                    </span>
+                                                    <span t-field="ambulance.trauma_burns_area" />
+                                                    <span>
+                                                        %。
+                                                    </span>
+                                                    <br/>
+                                                </t>
+                                                <t t-elif="trauma.name == '其他'">
+                                                    <span>
+                                                        ■其他：
+                                                    </span>
+                                                    <span t-field="ambulance.trauma_other" />
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-set="else_counter" t-value="else_counter + 1" />
+                                                    <span>
+                                                        ■
+                                                    </span>
+                                                    <span t-field="trauma.name" />
+                                                    <t t-if="else_counter%2 == 0">
+                                                        <br/>
+                                                    </t>
+                                                </t>
+                                                
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            無
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        備<br/>註<br/>欄
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top; padding: 0px 5px;" colspan="2">
+                                        <span t-field="ambulance.human_body_image_note" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="3">
+                                        過敏史
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" rowspan="2">
+                                        給<br/>藥
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="6">
+                                        時間，藥名，途徑/劑量，執行者
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        ASL處置
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;">
+                                        線上指導醫師
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px;" colspan="3">
+                                        <t t-if="ambulance.allergy_ids">
+                                            <t t-foreach="ambulance.allergy_ids" t-as="allergy">
+                                                <t t-if="allergy.name == '食物'">
+                                                    <span>
+                                                        食物：
+                                                    </span>
+                                                    <span t-field="ambulance.allergy_food" />
+                                                    <br/>
+                                                </t>
+                                                <t t-elif="allergy.name == '藥物'">
+                                                    <span>
+                                                        藥物：
+                                                    </span>
+                                                    <span t-field="ambulance.allergy_drug" />
+                                                    <br/>
+                                                </t>
+                                                <t t-elif="allergy.name == '其他'">
+                                                    <span>
+                                                        其他：
+                                                    </span>
+                                                    <span t-field="ambulance.allergy_other" />
+                                                    <br/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-field="allergy.name" />
+                                                    <br/>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            沒有填寫
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px;font-size: 12px;" colspan="6">
+                                        <t t-if="ambulance.drug_record_ids">
+                                            <t t-foreach="ambulance.drug_record_ids" t-as="drug">
+                                                <span t-field="drug.given_time_str" />
+                                                <span>，</span>
+                                                <span t-field="drug.name" />
+                                                <span>，</span>
+                                                <span t-field="drug.given_method" />
+                                                <span>/</span>
+                                                <span t-field="drug.given_dose" />
+                                                <span>，</span>
+                                                <span t-field="drug.given_who" />
+                                                <br/>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            無
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px; font-size: 12px;">
+                                        <t t-if="ambulance.drug_asl_process_ids">
+                                            <t t-foreach="ambulance.drug_asl_process_ids" t-as="asl">
+                                                <t t-if="asl.name == '氣管內管'">
+                                                    <span>
+                                                        ■氣管內管
+                                                    </span>
+                                                    <span t-field="ambulance.drug_asl_process_on_tube_size" />
+                                                    <span>
+                                                        號，
+                                                        <br/>
+                                                        固定
+                                                    </span>
+                                                    <span t-field="ambulance.drug_asl_process_on_tube_fix_cm" />
+                                                    <span>
+                                                        公分cm。
+                                                    </span>
+                                                </t>
+                                                <t t-elif="asl.name == '手動電擊'">
+                                                    <span>
+                                                        ■手動電擊
+                                                    </span>
+                                                    <span t-field="ambulance.drug_asl_process_elect_times" />
+                                                    <span>
+                                                        次，
+                                                        <br/>
+                                                    </span>
+                                                    <span t-field="ambulance.drug_asl_process_elect_joule" />
+                                                    <span>
+                                                        Joule。
+                                                    </span>
+                                                </t>
+                                                <br/>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            無
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px; font-size: 12px;">
+                                        <span>
+                                            指導說明：
+                                        </span>
+                                        <t t-if="ambulance.drug_online_mentor_illustration">
+                                            <br/>
+                                            <span t-field="ambulance.drug_online_mentor_illustration" />
+                                        </t>
+                                        <t t-else="">
+                                            <span>
+                                                無
+                                            </span>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" rowspan="2">
+                                        病<br/>患<br/>主<br/>訴
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 0px 5px; font-size: 10px;" colspan="3" rowspan="2">
+                                        <t t-if="ambulance.chief_complaint_is_telled_by_other">
+                                            <t t-if="ambulance.chief_complaint_is_telled_by_other == 'yes'">
+                                                <span>
+                                                    ■家屬或同事、友人代訴
+                                                </span>
+                                                <br/>
+                                            </t>
+                                            <t t-else="">
+                                                <span>
+                                                    □家屬或同事、友人代訴
+                                                </span>
+                                                <br/>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <span>
+                                                □家屬或同事、友人代訴
+                                            </span>
+                                            <br/>
+                                        </t>
+                                        <span t-field="ambulance.chief_complaint" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="2">
+                                        過去病史
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" rowspan="2">
+                                        生<br/>命<br/>徵<br/>象
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:left;vertical-align:middle;" colspan="8">
+                                        時間，意識情況，體溫，脈搏，呼吸，血壓，SpO2，GCS
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px;" colspan="2">
+                                        <t t-if="ambulance.past_history_ids">
+                                            <t t-set="counter" t-value="0" />
+                                            <t t-foreach="ambulance.past_history_ids" t-as="history">
+                                                <t t-set="counter" t-value="counter + 1" />
+                                                <t t-if="history.name == '其他'">
+                                                    <span>
+                                                        其他：
+                                                    </span>
+                                                    <span t-field="ambulance.past_history_other" />
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-field="history.name" />
+                                                </t>
+                                                <t t-if="counter != history_size">
+                                                    <span>，</span>
+                                                </t>
+                                                <t t-if="counter%2 == 0 ">
+                                                    <br/>
+                                                </t>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            沒有填寫
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top;padding: 5px; font-size: 12px;" colspan="8">
+                                        <t t-if="ambulance.vital_signs_record_ids">
+                                            <t t-foreach="ambulance.vital_signs_record_ids" t-as="vital">
+                                                <t t-if="vital.arrive_triage_station == 'yes'">
+                                                    <span t-field="vital.record_time_final" />
+                                                </t>
+                                                <t t-else="">
+                                                    <span t-field="vital.record_time_str" />
+                                                </t>
+                                                <span>，</span>
+                                                <span t-field="vital.conscious_situation" />
+                                                <span>，</span>
+                                                <span t-field="vital.temperature" />
+                                                <span>，</span>
+                                                <span t-field="vital.palse" />
+                                                <span>，</span>
+                                                <span t-field="vital.breath" />
+                                                <span>，</span>
+                                                <span t-field="vital.blood_pressure" />
+                                                <span>，</span>
+                                                <span t-field="vital.sp02" />
+                                                <span>，</span>
+                                                <span t-field="vital.gcs_final" />
+                                                <br/>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            沒有填寫
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top; padding: 0px 5px;" colspan="6" rowspan="2">
+                                        <span>
+                                            救護車費用（含醫護人員）：
+                                        </span>
+                                        <span t-field="ambulance.ambulance_fee" />
+                                        <span>
+                                        ，氧氣使用費：
+                                        </span>
+                                        <span t-field="ambulance.oxygen_fee" />
+                                        <span>
+                                        ，總計：
+                                        </span>
+                                        <span t-field="ambulance.total_fee" />
+                                        <br/>
+                                        <t t-if="ambulance.receive_fee_situations_id">
+                                            <t t-if="ambulance.receive_fee_situations_id.id == 1">
+                                                <span>
+                                                    已收費，收費方式為
+                                                </span>
+                                                <t t-if="ambulance.receive_fee_yes_pay_method_id">
+                                                    <span t-field="ambulance.receive_fee_yes_pay_method_id" />
+                                                    <span>
+                                                    。
+                                                    </span>
+                                                </t>
+                                            </t>
+                                            <t t-if="ambulance.receive_fee_situations_id.id == 2">
+                                                <span>
+                                                    已收費，由聯新國際醫院代收。
+                                                </span>
+                                            </t>
+                                            <t t-if="ambulance.receive_fee_situations_id.id == 3">
+                                                <t t-if="ambulance.receive_fee_no_pay_method_id">
+                                                    <t t-if="ambulance.receive_fee_no_pay_method_id.id == 1">
+                                                        <span>
+                                                            未收費，欠款。
+                                                        </span>
+                                                    </t>
+                                                    <t t-if="ambulance.receive_fee_no_pay_method_id.id == 2">
+                                                        <span>
+                                                            未收費，匯款。
+                                                        </span>
+                                                    </t>
+                                                    <t t-if="ambulance.receive_fee_no_pay_method_id.id == 3">
+                                                        <span>
+                                                            未收費，統一請款：
+                                                        </span>
+                                                        <span t-field="ambulance.receive_fee_no_pay_method_request_target" />
+                                                        <span>
+                                                            。
+                                                        </span>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" rowspan="2">
+                                        簽<br/>名<br/>欄
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="2">
+                                        隨車救護人員簽名
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="2">
+                                        接收單位簽名
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="2">
+                                        拒絕送醫簽名
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;overflow:hidden;padding:5px;word-break:normal;border-color:inherit;text-align:center;vertical-align:middle;" colspan="2">
+                                        病患/家屬/關係人簽名
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top; padding: 5px; font-size: 12px;" colspan="2">
+                                        <t t-if="ambulance.attending_crew_ids">
+                                            <t t-foreach="ambulance.attending_crew_ids" t-as="crew">
+                                                <span t-esc="crew_index+1" />
+                                                <span>、</span>
+                                                <span t-field="crew.name" />
+                                                <t t-if="crew.signature">
+                                                    <span t-field="crew.signature" t-options-widget="'image'" t-options-style="'width:35%;'" />
+                                                </t>
+                                                <br/>
+                                            </t>
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top; padding: 5px; font-size: 12px;" colspan="2">
+                                        <span t-field="ambulance.receive_unit" />
+                                        <br/>
+                                        <t t-if="ambulance.receive_unit_sign">
+                                            <span t-field="ambulance.receive_unit_sign" t-options-widget="'image'" t-options-style="'width:35%;'" />
+                                        </t>
+                                        <br/>
+                                        <span>
+                                            時間：
+                                        </span>
+                                        <span t-field="ambulance.receive_unit_datetime_str" />
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top; padding: 5px; font-size: 10px;" colspan="2">
+                                        <t t-if="ambulance.reject_transport == 'yes'">
+                                            <span>
+                                                ■拒絕醫療聲明：
+                                                本人聲明，<br/>
+                                                救護人員以解釋病情與送醫之<br/>
+                                                需要，但我拒絕救護與送醫。
+                                            </span>
+                                            <br/>
+                                            <span>
+                                                簽名：
+                                            </span>
+                                            <span t-field="ambulance.reject_transport_name" />
+                                            <t t-if="ambulance.reject_transport_sign">
+                                                <span t-field="ambulance.reject_transport_sign" t-options-widget="'image'" t-options-style="'width:35%;'" />
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            沒有拒絕
+                                        </t>
+                                    </td>
+                                    <td style="border-color:black;border-style:solid;border-width:1px;border-color:inherit;text-align:left;vertical-align:top; padding: 5px; font-size: 12px;" colspan="2">
+                                        <span t-field="ambulance.relation_name" />
+                                        <t t-if="ambulance.relation_sign">
+                                            <span t-field="ambulance.relation_sign" t-options-widget="'image'" t-options-style="'width:35%;'" />
+                                        </t>
+                                        <br/>
+                                        <span>
+                                            連絡電話：
+                                        </span>
+                                        <span t-field="ambulance.relation_phone" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
