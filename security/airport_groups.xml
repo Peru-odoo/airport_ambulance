@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="airport_ambulance_group_user" model="res.groups">
+            <field name="name">AA_User</field>
+            <field name="comment">Normal user of Airport Ambulance model.</field>
+        </record>
+        
+        <record id="airport_ambulance_group_manager" model="res.groups">
+            <field name="name">AA_Manager</field>
+            <field name="comment">The manager of Airport Ambulance model.</field>
+        </record>
+    </data>
+</odoo>
